@@ -4,14 +4,12 @@ import "strconv"
 
 func Say(i int) string {
 
-	if i%15 == 0 {
-		return "FizzBuzz"
+	s := []string{"FizzBuzz", "x", "x", "Fizz", "x", "Buzz", "Fizz", "x",
+		"x", "Fizz", "Buzz", "x", "Fizz", "x", "x"}
+	var result string
+	result = s[i%15]
+	if result == "x" {
+		return strconv.Itoa(i)
 	}
-	if i%3 == 0 {
-		return "Fizz"
-	}
-	if i%5 == 0 {
-		return "Buzz"
-	}
-	return strconv.Itoa(i)
+	return result
 }

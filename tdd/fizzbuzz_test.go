@@ -1,6 +1,41 @@
 package tdd
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
+
+func TestSay(t *testing.T) {
+	testCases := []struct {
+		num      int
+		expected string
+	}{
+		{num: 1, expected: "1"},
+		{num: 2, expected: "2"},
+		{num: 3, expected: "Fizz"},
+		{num: 4, expected: "4"},
+		{num: 5, expected: "Buzz"},
+		{num: 6, expected: "Fizz"},
+		{num: 7, expected: "7"},
+		{num: 8, expected: "8"},
+		{num: 9, expected: "Fizz"},
+		{num: 10, expected: "Buzz"},
+		{num: 12, expected: "Fizz"},
+		{num: 13, expected: "13"},
+		{num: 15, expected: "FizzBuzz"},
+		{num: 30, expected: "FizzBuzz"},
+	}
+
+	for _, v := range testCases {
+		name := fmt.Sprintf("TestSayInput %v get %v", v.num, v.expected)
+		t.Run(name, func(t *testing.T) {
+			s := Say(v.num)
+			if s != v.expected {
+				t.Errorf("should be %v but got %v", v.expected, s)
+			}
+		})
+	}
+}
 
 func TestSayInput1Get1(t *testing.T) {
 	s := Say(1)
@@ -9,72 +44,8 @@ func TestSayInput1Get1(t *testing.T) {
 	}
 }
 
-func TestSayInput2Get2(t *testing.T) {
-	s := Say(2)
-	if s != "2" {
-		t.Errorf("should be %v but got %v", "2", s)
-	}
-}
-
-func TestSayInput3GetBizz(t *testing.T) {
-	s := Say(3)
-	if s != "Fizz" {
-		t.Errorf("should be %v but got %v", "Fizz", s)
-	}
-}
-
-func TestSayInput4Get4(t *testing.T) {
-	s := Say(4)
-	if s != "4" {
-		t.Errorf("should be %v but got %v", "4", s)
-	}
-}
-
-func TestSayInput5GetBuzz(t *testing.T) {
-	s := Say(5)
-	if s != "Buzz" {
-		t.Errorf("should be %v but got %v", "Buzz", s)
-	}
-}
-
-func TestSayInput6GetFizz(t *testing.T) {
-	s := Say(6)
-	if s != "Fizz" {
-		t.Errorf("should be %v but got %v", "Fizz", s)
-	}
-}
-
-func TestSayInput7Get7(t *testing.T) {
-	s := Say(7)
-	if s != "7" {
-		t.Errorf("should be %v but got %v", "7", s)
-	}
-}
-
-func TestSayInput9GetFizz(t *testing.T) {
-	s := Say(9)
-	if s != "Fizz" {
-		t.Errorf("should be %v but got %v", "Fizz", s)
-	}
-}
-
-func TestSayInput10GetBuzz(t *testing.T) {
-	s := Say(10)
-	if s != "Buzz" {
-		t.Errorf("should be %v but got %v", "Buzz", s)
-	}
-}
-
-func TestSayInput12GetFizz(t *testing.T) {
-	s := Say(12)
-	if s != "Fizz" {
-		t.Errorf("should be %v but got %v", "Fizz", s)
-	}
-}
-
-func TestSayInput15GetFizzBuzz(t *testing.T) {
-	s := Say(15)
-	if s != "FizzBuzz" {
-		t.Errorf("should be %v but got %v", "FizzBuzz", s)
+func BenchmarkSay(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Say(15)
 	}
 }
